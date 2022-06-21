@@ -14,6 +14,7 @@ class SignOutController extends Controller
 
     public function __invoke() {
         // logs out and invalitades JWT token
+        // looks like doing nothing ???
         auth()->logout(); 
     }
 }
