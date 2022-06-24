@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers\Auth'], f
     Route::post('register', 'RegisterController');
     Route::get('me', 'MeController');
 });
+
+// Route::post('hash/convert', 'HashController');
+Route::post('hash/convert', [HashController::class, 'convert']);

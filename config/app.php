@@ -179,6 +179,7 @@ return [
         * Extras...
         */
         // Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        App\Providers\HashServiceProvider::class,
 
     ],
 

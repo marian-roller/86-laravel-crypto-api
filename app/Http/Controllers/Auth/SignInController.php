@@ -12,7 +12,6 @@ class SignInController extends Controller
             return response(null, 401);
         }
 
-        // return response()->json(compact('token'));
         return response()->json([
             'token' => $token
         ]);
