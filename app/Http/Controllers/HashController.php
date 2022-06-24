@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Service\HashServiceInterface;
 
 class HashController extends Controller
 {
+    private $hashService;
+
+    public function __construct(HashServiceInterface $hashService)
+    {
+        $this->hashService = $hashService;
+    }
+    
     public function convert(Request $request) {
-
-        $data = $request->all();
-
-        // dd($data);
-
-        $hash = md5($data['input']);
-
-        return response()->json([
-            'result' => $hash
-        ]);
+        $result = $this->hashService->convert($request->all());
+        return response()->json(['result' => $result]);
     }
 }
