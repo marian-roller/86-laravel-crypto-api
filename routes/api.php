@@ -28,3 +28,4 @@ Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers\Auth'], f
 
 // Route::post('hash/convert', 'HashController');
 Route::post('hash/convert', [HashController::class, 'convert']);
+Route::get('hash/algos', [HashController::class, 'algos']);

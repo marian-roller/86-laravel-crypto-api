@@ -4,7 +4,23 @@ namespace App\Service;
 
 class HashService implements HashServiceInterface {
        
-        
+            
+    /**
+     * getAlgosList
+     *
+     * @return array
+     */
+    public function getAlgosList(): array {
+        $algosList = [];
+
+        foreach (hash_algos() as $algo) {
+            $algosList[] = $algo;
+        }
+
+        return $algosList;
+    }
+
+
     /**
      * convert
      *
@@ -13,18 +29,13 @@ class HashService implements HashServiceInterface {
      */
     public function convert(array $data): string {
 
-        if ($data['algorithm'] === 'md5') {
-            return $this->hashMd5($data['input'], $data['salt'] = '');
-            
-        } 
+        $result = 'algorithm not implemented';
 
-        $result = 'not hashed';
+        if (in_array($data['algorithm'], $this->getAlgosList())) {
+            $result = hash($data['algorithm'], $data['input'] . $data['salt']);
+        }
+
         return $result;
-    }
-
-    
-    private function hashMd5($input, $salt) {
-        return md5($input . $salt);
     }
 
 }
