@@ -31,8 +31,14 @@ class HashService implements HashServiceInterface {
 
         $result = 'algorithm not implemented';
 
+        $salt = isset($data['salt']) ? $data['salt'] : '';
+
         if (in_array($data['algorithm'], $this->getAlgosList())) {
-            $result = hash($data['algorithm'], $data['input'] . $data['salt']);
+            $result = hash(
+                $data['algorithm'], 
+                $data['input'] . 
+                $salt
+            );
         }
 
         return $result;
