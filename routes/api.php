@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HashController;
+use App\Http\Controllers\BlockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,4 @@ Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers\Auth'], f
 // Route::post('hash/convert', 'HashController');
 Route::post('hash/convert', [HashController::class, 'convert']);
 Route::get('hash/algos', [HashController::class, 'algos']);
+Route::post('block/mine', [BlockController::class, 'mine']);
