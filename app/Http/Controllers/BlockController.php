@@ -16,9 +16,7 @@ class BlockController extends Controller
     }
 
     public function mine(Request $request) {
-
         $data = $this->blockService->mine($request->all());
-
         return response()->json(['result' => $data]);
 
     }

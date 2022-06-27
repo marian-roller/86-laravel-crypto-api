@@ -5,9 +5,25 @@ namespace App\Service;
 class BlockService implements BlockServiceInterface {
 
     public function mine(array $data): array {
-        $result = ['block service'];
 
+        $algo = $data['algorithm'];
+        $blockId = $data['blockId'];
+        $nonce = $data['nonce'];
+        $input = $data['data'];
+        
 
-        return $result;
+        $hash = $data['hash'];
+        $condition = '0000';
+
+        while (substr($hash, 0, strlen($condition)) !== $condition) {
+            $nonce += 1;
+            $hash = $this->convert($blockId . $nonce . $input, $algo);
+        }
+
+        return ['nonce' => $nonce, 'hash' => $hash];
+    }
+
+    private function convert($data, $algo) {
+        return hash($algo, $data);
     }
 }
