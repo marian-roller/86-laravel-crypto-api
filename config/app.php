@@ -180,6 +180,7 @@ return [
         */
         // Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         App\Providers\HashServiceProvider::class,
+        App\Providers\BlockServiceProvider::class,
 
     ],
 
