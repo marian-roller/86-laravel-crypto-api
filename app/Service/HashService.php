@@ -13,13 +13,27 @@ class HashService implements HashServiceInterface {
     public function getAlgosList(): array {
         $algosList = [];
 
+        // for hash()
         foreach (hash_algos() as $algo) {
-            $algosList[] = $algo;
+            // $algosList[] = $algo;
         }
-
         return $algosList;
     }
 
+        
+    /**
+     * getPasswordAlgosList
+     *
+     * @return array
+     */
+    public function getPasswordAlgosList(): array {
+        $algosList = [];
+        // for hash_password() -> depending on server php version
+        foreach (password_algos() as $algo) {
+            $algosList[] = $algo;
+        }
+        return $algosList;
+    }
 
     /**
      * convert
