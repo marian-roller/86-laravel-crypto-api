@@ -18,6 +18,11 @@ class HashController extends Controller
         $algos = $this->hashService->getAlgosList();
         return response()->json(['result' => $algos]);
     }
+
+    public function passwordAlgos() {
+        $algos = $this->hashService->getPasswordAlgosList();
+        return response()->json(['result' => $algos]);
+    }
     
     public function convert(Request $request) {
         $result = $this->hashService->convert($request->all());
