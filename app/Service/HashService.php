@@ -15,12 +15,11 @@ class HashService implements HashServiceInterface {
 
         // for hash()
         foreach (hash_algos() as $algo) {
-            // $algosList[] = $algo;
+            $algosList[] = $algo;
         }
         return $algosList;
     }
 
-        
     /**
      * getPasswordAlgosList
      *
@@ -28,7 +27,7 @@ class HashService implements HashServiceInterface {
      */
     public function getPasswordAlgosList(): array {
         $algosList = [];
-        // for hash_password() -> depending on server php version
+        // algos for hash_password() -> depending on server php version
         foreach (password_algos() as $algo) {
             $algosList[] = $algo;
         }
@@ -36,15 +35,56 @@ class HashService implements HashServiceInterface {
     }
 
     /**
+     * getCryptAlgos
+     *
+     * @return array
+     */
+    public function getCryptAlgos(): array {
+        // probably this methods should not be used as crypt() is redundant
+        $constants = get_defined_constants();
+        $algos = [];
+
+        foreach ($constants as $constant => $value) {
+            if (substr($constant, 0, 6) == 'CRYPT_') {
+                $algos[] = $constant;
+            }
+        }
+
+        // removing constant CRYPT_SALT_LENGTH from algos list
+        if (in_array('CRYPT_SALT_LENGTH', $algos)) {   
+            $saltConstantIndex = array_search('CRYPT_SALT_LENGTH', $algos);
+            array_splice($algos, $saltConstantIndex, 1);
+        }
+
+        return $algos;
+    }
+
+
+    /**
      * convert
      *
-     * @param  mixed $data
+     * @param  array $data
      * @return string
      */
     public function convert(array $data): string {
 
         $result = 'algorithm not implemented';
 
+        if (isset($data['options'])) {
+            $result = $this->convertPasswordHash($data);
+        } else {
+            $result = $this->convertHash($data);
+        }
+        return $result;
+    }
+    
+    /**
+     * convertHash
+     *
+     * @param  array $data
+     * @return string
+     */
+    private function convertHash(array $data): string {
         $salt = isset($data['salt']) ? $data['salt'] : '';
 
         if (in_array($data['algorithm'], $this->getAlgosList())) {
@@ -54,8 +94,30 @@ class HashService implements HashServiceInterface {
                 $salt
             );
         }
+        return $result;
+    }
+    
+    /**
+     * convertPasswordHash
+     *
+     * @param  array $data
+     * @return string
+     */
+    private function convertPasswordHash(array $data): string {
+        $salt = isset($data['salt']) ? $data['salt'] : '';
+
+        if (in_array($data['algorithm'], $this->getPasswordAlgosList())) {
+            $result = password_hash(
+                $data['algorithm'], 
+                $data['input'] . 
+                $salt
+            );
+        }
+
 
         return $result;
     }
+
+
 
 }
