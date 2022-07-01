@@ -20,7 +20,6 @@ class HashService implements HashServiceInterface {
         return $algosList;
     }
 
-        
     /**
      * getPasswordAlgosList
      *
@@ -28,12 +27,37 @@ class HashService implements HashServiceInterface {
      */
     public function getPasswordAlgosList(): array {
         $algosList = [];
-        // for hash_password() -> depending on server php version
+        // algos for hash_password() -> depending on server php version
         foreach (password_algos() as $algo) {
             $algosList[] = $algo;
         }
         return $algosList;
     }
+
+    /**
+     * getCryptAlgos
+     *
+     * @return array
+     */
+    public function getCryptAlgos(): array {
+        $constants = get_defined_constants();
+        $algos = [];
+
+        foreach ($constants as $constant => $value) {
+            if (substr($constant, 0, 6) == 'CRYPT_') {
+                $algos[] = $constant;
+            }
+        }
+        
+        // removing constant CRYPT_SALT_LENGTH from algos list
+        if (in_array('CRYPT_SALT_LENGTH', $algos)) {   
+            $saltConstantIndex = array_search('CRYPT_SALT_LENGTH', $algos);
+            array_splice($algos, $saltConstantIndex, 1);
+        }
+
+        return $algos;
+    }
+
 
     /**
      * convert
