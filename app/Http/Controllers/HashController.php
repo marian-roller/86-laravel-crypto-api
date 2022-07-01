@@ -25,6 +25,7 @@ class HashController extends Controller
     }
 
     public function cryptAlgos() {
+        // later verify if needed.
         $algos = $this->hashService->getCryptAlgos();
         return response()->json(['result' => $algos]);
     }
