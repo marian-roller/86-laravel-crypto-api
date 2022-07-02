@@ -14,7 +14,8 @@ class EncryptController extends Controller
         $this->encryptService = $encryptService;
     }
 
-    public function encrypt(Request $request) {
+    public function encrypt(Request $request) 
+    {        
         $result = $this->encryptService->encrypt($request->all());
         return response()->json(['result' => $result]);
     }
