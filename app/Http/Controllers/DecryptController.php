@@ -37,7 +37,5 @@ class DecryptController extends Controller
         } catch (\Exception $e) {
             return response()->json(['result' => DecryptService::DECRYPTION_FAILED]);
         }
-
-        
     }
 }

@@ -22,7 +22,7 @@ class DecryptService implements DecryptServiceInterface {
         // decode data
         $decoded_encrypted_data = base64_decode($data['message']);
 
-        // get ivlen for give cipher
+        // get ivlen for given cipher
         $ivlen = openssl_cipher_iv_length($cipher);
 
         // get iv from data
