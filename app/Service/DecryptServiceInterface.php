@@ -4,6 +4,12 @@ namespace App\Service;
 
 interface DecryptServiceInterface {
 
-    public function decrypt(array $data);
+    /**
+     * decrypt
+     *
+     * @param  array $data
+     * @return string
+     */
+    public function decrypt(array $data): string;
 
 }
