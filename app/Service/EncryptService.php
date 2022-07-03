@@ -16,12 +16,14 @@ class EncryptService implements EncryptServiceInterface {
         $ivlen = openssl_cipher_iv_length($cipher);
         $iv = openssl_random_pseudo_bytes($ivlen);
 
-        $result = openssl_encrypt(
+        $result_raw = openssl_encrypt(
             $data['message'], 
             $cipher, 
             $data['key'], 
-            $options=0, 
+            $options=OPENSSL_RAW_DATA, 
             $iv);
+
+        $result = base64_encode($iv.$result_raw);
         return $result;
     }
 
