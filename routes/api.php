@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HashController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\EncryptController;
+use App\Http\Controllers\DecryptController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,4 @@ Route::get('hash/password-algos', [HashController::class, 'passwordAlgos']);
 Route::get('hash/crypt-algos', [HashController::class, 'cryptAlgos']);
 Route::post('block/mine', [BlockController::class, 'mine']);
 Route::post('crypt/encrypt', [EncryptController::class, 'encrypt']);
+Route::post('crypt/decrypt', [DecryptController::class, 'decrypt']);

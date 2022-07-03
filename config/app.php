@@ -182,6 +182,7 @@ return [
         App\Providers\HashServiceProvider::class,
         App\Providers\BlockServiceProvider::class,
         App\Providers\EncryptServiceProvider::class,
+        App\Providers\DecryptServiceProvider::class,
 
     ],
 
