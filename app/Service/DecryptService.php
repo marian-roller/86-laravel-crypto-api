@@ -20,7 +20,13 @@ class DecryptService implements DecryptServiceInterface {
         $cipher = 'aes-' . $data['keysize'] . '-' . $data['mode'];
 
         // decode data
-        $decoded_encrypted_data = base64_decode($data['message']);
+        if ($data['format'] === 'base64') {
+            $decoded_encrypted_data = base64_decode($data['message']);
+        }
+
+        if ($data['format'] === 'hex') {
+            $decoded_encrypted_data = hex2bin($data['message']);
+        }
 
         // get ivlen for given cipher
         $ivlen = openssl_cipher_iv_length($cipher);

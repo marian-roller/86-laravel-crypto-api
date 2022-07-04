@@ -35,7 +35,13 @@ class EncryptService implements EncryptServiceInterface {
             $iv);
 
         // encode encrypted data
-        $result = base64_encode($iv.$result_raw);
+        if ($data['format'] === 'base64') {
+            $result = base64_encode($iv.$result_raw);
+        }
+
+        if ($data['format'] === 'hex') {
+            $result = bin2hex($iv.$result_raw);
+        }
         
         return $result;
     }
