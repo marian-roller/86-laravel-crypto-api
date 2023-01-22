@@ -70,7 +70,7 @@ class HashService implements HashServiceInterface {
 
         $result = 'algorithm not implemented';
 
-        if (isset($data['options'])) {
+        if (!in_array($data['algorithm'], $this->getAlgosList()) && isset($data['options'])) {
             $result = $this->convertPasswordHash($data);
         } else {
             $result = $this->convertHash($data);
@@ -105,19 +105,15 @@ class HashService implements HashServiceInterface {
      */
     private function convertPasswordHash(array $data): string {
         $salt = isset($data['salt']) ? $data['salt'] : '';
-
         if (in_array($data['algorithm'], $this->getPasswordAlgosList())) {
             $result = password_hash(
-                $data['algorithm'], 
                 $data['input'] . 
-                $salt
+                $salt,
+                $data['algorithm']
             );
+        } else {
+            $result = 'error';
         }
-
-
         return $result;
     }
-
-
-
 }
