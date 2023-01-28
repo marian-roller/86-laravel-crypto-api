@@ -6,6 +6,7 @@ use App\Http\Controllers\HashController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\EncryptController;
 use App\Http\Controllers\DecryptController;
+use App\Http\Controllers\KeyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,5 @@ Route::get('hash/crypt-algos', [HashController::class, 'cryptAlgos']);
 Route::post('block/mine', [BlockController::class, 'mine']);
 Route::post('crypt/encrypt', [EncryptController::class, 'encrypt']);
 Route::post('crypt/decrypt', [DecryptController::class, 'decrypt']);
+Route::post('key/get-private', [KeyController::class, 'generatePrivateKey']);
+Route::post('key/get-public', [KeyController::class, 'generatePublicKey']);
