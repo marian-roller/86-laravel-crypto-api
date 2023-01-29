@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HashController;
 use App\Http\Controllers\BlockController;
@@ -30,7 +29,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers\Auth'], f
     Route::get('me', 'MeController');
 });
 
-// Route::post('hash/convert', 'HashController');
 Route::post('hash/convert', [HashController::class, 'convert']);
 Route::get('hash/algos', [HashController::class, 'algos']);
 Route::get('hash/password-algos', [HashController::class, 'passwordAlgos']);
@@ -38,5 +36,4 @@ Route::get('hash/crypt-algos', [HashController::class, 'cryptAlgos']);
 Route::post('block/mine', [BlockController::class, 'mine']);
 Route::post('crypt/encrypt', [EncryptController::class, 'encrypt']);
 Route::post('crypt/decrypt', [DecryptController::class, 'decrypt']);
-Route::post('key/get-private', [KeyController::class, 'generatePrivateKey']);
-Route::post('key/get-public', [KeyController::class, 'generatePublicKey']);
+Route::post('key/get-keys', [KeyController::class, 'generateKeys']);
