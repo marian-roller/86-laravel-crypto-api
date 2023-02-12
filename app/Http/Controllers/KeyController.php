@@ -20,6 +20,15 @@ class KeyController extends Controller {
         return response()->json(['result' => [
             'private_key' => $privKey, 
             'public_key' => $public_key
-            ]]);
+        ]]);
+    }
+
+    public function signMessage(Request $request) {
+        $signature = 'signed message from backend';
+
+        return response()->json(['result' => [
+            'signature' => $signature, 
+        ]]);
+
     }
 }
