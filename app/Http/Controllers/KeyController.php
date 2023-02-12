@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 
 class KeyController extends Controller {
@@ -23,12 +22,16 @@ class KeyController extends Controller {
         ]]);
     }
 
+
     public function signMessage(Request $request) {
-        $signature = 'signed message from backend';
+        $data = $request->get('message');
+        $privateKey = $request->get('private_key');
+
+        //create signature
+        openssl_sign($data, $signature, $privateKey);
 
         return response()->json(['result' => [
-            'signature' => $signature, 
+            'signature' => base64_encode($signature), 
         ]]);
-
     }
 }
