@@ -1,4 +1,4 @@
-# gives 403
+# gives 403:
 # <IfModule mod_rewrite.c>
 #     <IfModule mod_negotiation.c>
 #         Options -MultiViews
@@ -15,8 +15,21 @@
 #     RewriteRule ^ public/index.php [L]
 # </IfModule>
 
+
+# gives 500:
+# <IfModule mod_rewrite.c>
+#     RewriteEngine on
+#     RewriteCond %{REQUEST_URI} !^public
+#     RewriteRule ^(.*)$ public/$1 [L]
+# </IfModule>
+
 <IfModule mod_rewrite.c>
-    RewriteEngine on
-    RewriteCond %{REQUEST_URI} !^public
-    RewriteRule ^(.*)$ public/$1 [L]
+    Options +FollowSymLinks
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} !^/public/ 
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /public/$1 
+    #RewriteRule ^ index.php [L]
+    RewriteRule ^(/)?$ public/index.php [L] 
 </IfModule>
