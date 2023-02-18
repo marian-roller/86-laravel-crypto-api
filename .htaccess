@@ -1,3 +1,8 @@
+AddHandler application/x-httpd-php81 php
+Options +SymLinksIfOwnerMatch
+RewriteEngine On
+RewriteRule ^ index.php [L]
+
 # gives 403:
 # <IfModule mod_rewrite.c>
 #     <IfModule mod_negotiation.c>
@@ -44,7 +49,4 @@
 # </IfModule>
 
 
-AddHandler application/x-httpd-php81 php
-Options +SymLinksIfOwnerMatch
-RewriteEngine On
-RewriteRule ^ index.php [L]
+
