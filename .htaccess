@@ -1,19 +1,19 @@
 # gives 403:
-<IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews
-    </IfModule>
+# <IfModule mod_rewrite.c>
+#     <IfModule mod_negotiation.c>
+#         Options -MultiViews
+#     </IfModule>
 
-    RewriteEngine On
+#     RewriteEngine On
 
-    # Redirect Trailing Slashes...
-    RewriteRule ^(.*)/$ /public/$1 [L,R=301]
+#     # Redirect Trailing Slashes...
+#     RewriteRule ^(.*)/$ /public/$1 [L,R=301]
 
-    # Handle Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ public/index.php [L]
-</IfModule>
+#     # Handle Front Controller...
+#     RewriteCond %{REQUEST_FILENAME} !-d
+#     RewriteCond %{REQUEST_FILENAME} !-f
+#     RewriteRule ^ public/index.php [L]
+# </IfModule>
 
 
 # gives 500:
@@ -42,3 +42,9 @@
 #     RewriteRule ^-$public/index.php[L]
 #     RewriteRule ^((?!public/).*)$ public/$1 [L]
 # </IfModule>
+
+
+AddHandler application/x-httpd-php81 php
+Options +SymLinksIfOwnerMatch
+RewriteEngine On
+RewriteRule ^ index.php [L]
