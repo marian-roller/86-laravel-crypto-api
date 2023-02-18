@@ -1,15 +1,15 @@
 <IfModule mod_rewrite.c>
-Options +FollowSymLinks
-RewriteEngine On
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
 
-RewriteCond %{REQUEST_URI} !^/public/ 
+    RewriteEngine On
 
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
+    # Redirect Trailing Slashes...
+    RewriteRule ^(.*)/$ /public/$1 [L,R=301]
 
-
-
-RewriteRule ^(.*)$ /public/$1 
-#RewriteRule ^ index.php [L]
-RewriteRule ^(/)?$ public/index.php [L] 
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ public/index.php [L]
 </IfModule>
