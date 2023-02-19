@@ -14,3 +14,4 @@ yarn-error.log
 /.idea
 /.vscode
 zdata_86_laravel.txt
+composer.phar
