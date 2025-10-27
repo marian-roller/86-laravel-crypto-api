@@ -12,6 +12,15 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 WORKDIR /var/www/html
 
+# Tworzenie brakujących katalogów
+RUN mkdir -p storage/framework/{sessions,views,cache} \
+    && chmod -R 775 storage \
+    && chown -R www-data:www-data storage
+
+# Kopiowanie plików
 COPY . .
+
+# Instalacja zależności PHP
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 RUN chown -R www-data:www-data storage bootstrap/cache
