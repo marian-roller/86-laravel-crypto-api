@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Data\BlockMineDataDto;
+
 interface BlockServiceInterface {
-    public function mine(array $data): array;
+    public function mine(BlockMineDataDto $data): array;
 }
