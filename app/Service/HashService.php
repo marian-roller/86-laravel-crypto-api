@@ -21,38 +21,15 @@ class HashService implements HashServiceInterface {
     public function convert(HashConvertDataDto $data): string 
     {
         $result = 'algorithm not implemented';
+        $salt = !empty($data->salt) ? $data->salt : '';
+        $input = $data->input . $salt;
 
         if (in_array($data->algorithm, $this->getPasswordAlgosList())) {
-            $result = $this->convertPasswordHash($data);
-        } else {
-            $result = $this->convertHash($data);
+            $result = password_hash($input, $data->algorithm);
+        } elseif (in_array($data->algorithm, $this->getAlgosList())) {
+            $result = hash($data->algorithm, $input);
         }
 
-        return $result;
-    }
-    
-    private function convertHash(HashConvertDataDto $data): string 
-    {
-        $salt = isset($data->salt) ? $data->salt : '';
-
-        if (in_array($data->algorithm, $this->getAlgosList())) {
-            $result = hash(
-                $data->algorithm, 
-                $data->input . 
-                $salt
-            );
-        }
-
-        return $result;
-    }
-    
-    private function convertPasswordHash(HashConvertDataDto $data): string 
-    {
-        $result = password_hash(
-            $data->input,
-            $data->algorithm
-        );
-        
         return $result;
     }
 }
