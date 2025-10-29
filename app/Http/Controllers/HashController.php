@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\HashConvertDataDto;
+use App\Http\Requests\HashConvertRequest;
 use Illuminate\Http\Request;
 use App\Service\HashServiceInterface;
 
@@ -24,14 +26,9 @@ class HashController extends Controller
         return response()->json(['result' => $algos]);
     }
 
-    public function cryptAlgos() {
-        // later verify if needed.
-        $algos = $this->hashService->getCryptAlgos();
-        return response()->json(['result' => $algos]);
-    }
-    
-    public function convert(Request $request) {
-        $result = $this->hashService->convert($request->all());
+    public function convert(HashConvertRequest $request) {
+        $dto = new HashConvertDataDto(...$request->validated());
+        $result = $this->hashService->convert($dto);
         return response()->json(['result' => $result]);
     }
 }
