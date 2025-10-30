@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ValidHashAlgorithm;
 use Illuminate\Foundation\Http\FormRequest;
 
 class HashConvertRequest extends FormRequest
@@ -16,7 +17,7 @@ class HashConvertRequest extends FormRequest
         return [
             'input' => 'required|string',
             'salt' => 'nullable|string',
-            'algorithm' => 'required|string', //TODO
+            'algorithm' => ['required', 'string', new ValidHashAlgorithm()], 
         ];
     }
 }
